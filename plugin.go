@@ -74,6 +74,7 @@ func (p Plugin) Exec() error {
 	}
 
 	var cmds []*exec.Cmd
+	cmds = append(cmds, commandDockerPrune())          // cleanup docker
 	cmds = append(cmds, commandVersion())              // docker version
 	cmds = append(cmds, commandInfo())                 // docker info
 	cmds = append(cmds, commandDroneExec(p.DroneExec)) // drone exec
@@ -162,6 +163,10 @@ func commandDaemon(daemon Daemon) *exec.Cmd {
 		args = append(args, "--experimental")
 	}
 	return exec.Command(dockerdExe, args...)
+}
+
+func commandDockerPrune() *exec.Cmd {
+	return exec.Command(dockerExe, "system", "prune", "-f")
 }
 
 // trace writes each command to stdout with the command wrapped in an xml
