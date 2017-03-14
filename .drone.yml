@@ -15,8 +15,8 @@ pipeline:
 
   publish:
     image: plugins/docker
-    repo: plugins/docker
-    tags: [ "latest", "1.13", "1" ]
+    repo: jmccann/drone-in-drone
+    tags: [ "latest", "0.5" ]
     when:
       branch: master
       event: push
